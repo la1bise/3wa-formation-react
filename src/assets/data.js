@@ -1,8 +1,13 @@
-{
+import html from "./images/icon-html.svg";
+import css from "./images/icon-css.svg";
+import javascript from "./images/icon-js.svg";
+import accessibility from "./images/icon-accessibility.svg";
+
+export default{
     "quizzes": [
         {
             "title": "HTML",
-            "icon": "./assets/images/icon-html.svg",
+            "icon": html,
             "questions": [
                 {
                     "question": "What does HTML stand for?",
@@ -108,7 +113,7 @@
         },
         {
             "title": "CSS",
-            "icon": "./assets/images/icon-css.svg",
+            "icon": css,
             "questions": [
                 {
                     "question": "What does CSS stand for?",
@@ -214,7 +219,7 @@
         },
         {
             "title": "JavaScript",
-            "icon": "./assets/images/icon-js.svg",
+            "icon": javascript,
             "questions": [
                 {
                     "question": "Which syntax is correct to output 'Hello World' in an alert box?",
@@ -320,7 +325,7 @@
         },
         {
             "title": "Accessibility",
-            "icon": "./assets/images/icon-accessibility.svg",
+            "icon": accessibility,
             "questions": [
                 {
                     "question": "What does 'WCAG' stand for?",
