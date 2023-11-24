@@ -41,6 +41,8 @@ console.log('tasks')
     // une liste (tableau) puis ajouter le nouvelle tâche
     const newArr = [...tasks, task];
     setTasks(newArr)
+
+    setTask('')
     localStorage.setItem('my-tasks', JSON.stringify(newArr))
   };
 
@@ -56,7 +58,7 @@ console.log(tasks);
     onSubmit={addTaskHandler}
     className="flex justify-between-center items-center gap-4">
 
-      <input
+      <input value={task}
           // A chaque saisi sur le input la fonction est rééxecuter
           // Avec le paramétre `event` on peut accéder à l'élément `input`
           // Donc à sa valeur `event.target.value`
@@ -79,7 +81,13 @@ console.log(tasks);
           */}
           {tasks.map((item, index) => (
 
-            <TaskItem key={index} name={item}></TaskItem>
+            <TaskItem removeItem={()=>{ 
+              const newArr = [...tasks];
+              newArr.splice(index,1)
+              setTasks(newArr);
+            }} 
+            key={index} 
+            name={item}></TaskItem>
           ))}
       
       </ul>
