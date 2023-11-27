@@ -1,7 +1,14 @@
 import React from 'react'
 
-export default function Notes() {
+export default function Notes(props) {
   return (
-    <div>Notes</div>
+      <li className=''>
+        <button onClick={props.onClick}>
+          {props.name}
+          
+        </button>
+        
+      </li>
+    
   )
 }
