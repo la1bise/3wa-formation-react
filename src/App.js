@@ -15,7 +15,7 @@ const reducer = function (state, action) { //#2
   switch (action.type) {
     case "onChangeInput": // if(action.type === 'onChangeInput')
       const searchFilter = data.filter((item) => //#7
-        item.name.toLowerCase().includes(action.payload.toLowerCase)
+        item.name.toLowerCase().includes(action.payload.toLowerCase())
       );
       return { //#8
         ...state,
