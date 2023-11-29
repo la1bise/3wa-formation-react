@@ -9,9 +9,8 @@ import TaskItem from './components/TaskItem';
 const reducer = function (state, action) {
   switch (action.type) {
     case 'onChange':
-      console.log(state.textEntered);
-      if (state.taskFilter && state.textEntered !== "") {
-        return { ...state, taskFilter: null , textEntered: action.payload};
+      if (state.taskFilter && action.payload === '') {
+        return { ...state, taskFilter: null, textEntered: action.payload };
       }
 
       /*
@@ -22,11 +21,18 @@ const reducer = function (state, action) {
 
     case 'getTasksLocalStorage':
       const tasksLocalStorage = JSON.parse(localStorage.getItem('my-tasks'));
-      if(taskSearch){
-      return { ...state, tasks: tasksLocalStorage };
-      } else{
-        return { ...stage };
+
+      /*
+      On vérfie si on reçoit des données du localStorage
+      si c'est le cas on met le state `tasks`
+      sinon on retourne le state sans AUCUNE modification
+      */
+      if (tasksLocalStorage) {
+        return { ...state, tasks: tasksLocalStorage };
+      } else {
+        return { ...state };
       }
+
     case 'addTask':
       const newTasks = [...state.tasks, state.textEntered];
       // Stock les taches dans le localstorage
@@ -36,6 +42,12 @@ const reducer = function (state, action) {
     case 'removeTask':
       const arr = [...state.tasks];
 
+      /* 
+      `taskCurrent` évalue si `state.taskFilter` existe (utilisateur a fait une recherche)
+      si c'est le cas il prendra la valeur de ce dernier sinon le prend la valeur
+      de notre tableau d'origine (`state.task`)
+      */
+      const tasksCurrent = state.taskFilter || arr;
       /*
       🚨🚨 ATTENTION 🚨🚨
       Quand on stock le resulat de la `splice` on récupére l'element supprimer
@@ -51,10 +63,20 @@ const reducer = function (state, action) {
       animals.splice(2, 1);
       // ["dog", "cat"]
       */
-      arr.splice(action.payload, 1);
+
+      const newFilterTask = tasksCurrent.filter(
+        (item) => item !== action.payload
+      );
+
+      arr.splice(arr.indexOf(action.payload), 1);
       // Stock les taches dans le localstorage
       localStorage.setItem('my-tasks', JSON.stringify(arr));
-      return { ...state, tasks: arr };
+
+      return {
+        ...state,
+        tasks: arr,
+        taskFilter: state.taskFilter ? newFilterTask : null,
+      };
 
     case 'searchTask':
       const taskSearch = state.tasks.filter((item) =>
@@ -79,7 +101,7 @@ function App() {
     textEntered: '',
   };
   const [state, dispatch] = useReducer(reducer, initialValue);
-  
+
   /* 
 useffect sera exécute au montage du composant
 */
@@ -101,7 +123,7 @@ useffect sera exécute au montage du composant
   };
 
   const tasks = state.taskFilter || state.tasks;
-  
+
   return (
     <main className="bg-slate-900 min-h-screen pt-5 px-10">
       {/*       <h1 className="text-slate-50 text-3xl font-bold text-center mb-10">
@@ -155,9 +177,7 @@ useffect sera exécute au montage du composant
             <TaskItem
               key={index}
               name={item}
-              removeItem={() =>
-                dispatch({ type: 'removeTask', payload: index })
-              }
+              removeItem={() => dispatch({ type: 'removeTask', payload: item })}
             />
           ))}
         </ul>
