@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useReducer } from 'react';
 import TaskItem from './components/TaskItem';
-
+import logo from './assets/images/logo.png'
 /* Create reducer qui prend en paramétre de fonction
 `state` = c'est un objet qui représente les états locaux
 `action` = c'est un objet qui contient 
@@ -131,7 +131,7 @@ useffect sera exécute au montage du composant
         TODO APP
       </h1> */}
       {/*  <img src={logo} alt="image" className="block mx-auto" /> */}
-      <img src={'/images/logo.png'} alt="image" className="block mx-auto" />
+      <img src={logo} alt="image" className="block mx-auto" />
 
       {/* Input pour taper une tache */}
       <form
