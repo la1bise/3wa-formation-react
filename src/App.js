@@ -6,6 +6,7 @@ import TaskItem from './components/TaskItem';
 `action` = c'est un objet qui contient 
 `type` permettant de définir les différentes action possible
 */
+/*deployed*/
 const reducer = function (state, action) {
   switch (action.type) {
     case 'onChange':
