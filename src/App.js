@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useReducer } from 'react';
 import logo from './assets/images/logo.png'
-import TaskItem from './components/TaskItem';
-
+import TaskItem from './components/TaskItem'
 /* Create reducer qui prend en paramétre de fonction
 `state` = c'est un objet qui représente les états locaux
 `action` = c'est un objet qui contient 
